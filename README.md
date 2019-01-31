@@ -1,14 +1,24 @@
 # sms_receiver
 
-A new flutter plugin project.
+Flutter plugin for reading incoming-and-expected SMS only
 
-## Getting Started
+Currently developed for Android: reading message without requesting SMS permission.
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.io/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## Usage
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+- Generate acceptable [message format](https://developers.google.com/identity/sms-retriever/verify)
+
+  - DON'T generate hash message on runtime using `AppSignatureHelper`. Store hash as constant inside your app before building app package.
+
+- Add dependency to this package
+
+- Create `SmsReceiver()` with `onSmsReceived(String message)` handler.
+
+- Start listening with `startListening()`
+
+- Once sms received or receiver timed out, use `startListening` again. See example
+  - Receiver timeout is 5 minutes. Currently not configurable.
+
+## Future Development
+
+- Add/Combine with iOS counterpart
