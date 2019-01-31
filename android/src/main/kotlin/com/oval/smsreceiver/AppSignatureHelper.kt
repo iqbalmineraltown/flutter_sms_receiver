@@ -1,5 +1,10 @@
 package com.oval.smsreceiver
 
+/**
+ * Source:
+ * https://github.com/googlesamples/android-credentials/blob/master/sms-verification/android/app/src/main/java/com/google/samples/smartlock/sms_verify/AppSignatureHelper.java
+ */
+
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.pm.PackageManager
@@ -13,10 +18,10 @@ import java.util.Arrays
 class AppSignatureHelper(context: Context): ContextWrapper(context) {
 
     companion object {
-        val TAG = AppSignatureHelper::class.java.simpleName
-        private val HASH_TYPE = "SHA-256"
-        val NUM_HASHED_BYTES = 9
-        val NUM_BASE64_CHAR = 11
+        val TAG: String = AppSignatureHelper::class.java.simpleName
+        const val HASH_TYPE: String = "SHA-256"
+        const val NUM_HASHED_BYTES: Int = 9
+        const val NUM_BASE64_CHAR: Int = 11
     }
 
     fun getAppSignatures(): ArrayList<String> {
@@ -36,12 +41,12 @@ class AppSignatureHelper(context: Context): ContextWrapper(context) {
             return appCodes
         } catch (e: PackageManager.NameNotFoundException) {
             Log.e(TAG, "Unable to find package to obtain hash.", e)
-            ArrayList<String>()
+            ArrayList()
         }
     }
 
     private fun hash(packageName: String, signature: String): String? {
-        val appInfo = packageName + " " + signature
+        val appInfo = "$packageName $signature"
         return try {
             val messageDigest = MessageDigest.getInstance(HASH_TYPE)
             messageDigest.update(appInfo.toByteArray(Charsets.UTF_8))

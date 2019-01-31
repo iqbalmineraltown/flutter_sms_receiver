@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class SmsReceiver {
   static const MethodChannel _channel =
-      const MethodChannel('com.oval.sms_receiver');
+      const MethodChannel('com.oval.smsreceiver');
 
   Function(String) onSmsReceived;
   Function onTimeout;

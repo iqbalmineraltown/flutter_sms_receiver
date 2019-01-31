@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:sms_receiver/sms_receiver.dart';
 
 void main() => runApp(MyApp());
@@ -12,7 +9,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Waiting for messages...';
+  String _textContent = 'Waiting for messages...';
   SmsReceiver _smsReceiver;
 
   @override
@@ -20,45 +17,24 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     _smsReceiver = SmsReceiver(onSmsReceived, onTimeout: onTimeout);
     _startListening();
-    //initPlatformState();
   }
 
-  void onSmsReceived(String pin) {
+  void onSmsReceived(String message) {
     setState(() {
-      _platformVersion = "The pin is: $pin";
+      _textContent = message;
     });
   }
 
   void onTimeout() {
     setState(() {
-      _platformVersion = "Timeout!!!";
-    });
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await _smsReceiver.platformVersion();
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
+      _textContent = "Timeout!!!";
     });
   }
 
   void _startListening() {
     _smsReceiver.startListening();
     setState(() {
-      _platformVersion = "Waiting for messages...";
+      _textContent = "Waiting for messages...";
     });
   }
 
@@ -67,10 +43,20 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('SMS listener app'),
+          title: const Text('SMS Listener App'),
         ),
-        body: Center(
-          child: Text(_platformVersion),
+        body: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              alignment: Alignment.center,
+              child: Text(_textContent),
+            ),
+            RaisedButton(
+              child: Text("Listen Again"),
+              onPressed: _startListening,
+            ),
+          ],
         ),
       ),
     );
