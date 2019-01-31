@@ -30,21 +30,27 @@ class SmsReceiverPlugin(private val activity: Activity,
       "startListening" -> {
         val client = SmsRetriever.getClient(activity)
         val retriever = client.startSmsRetriever()
+
         retriever.addOnSuccessListener {
           val listener = object:SMSBroadcastReceiver.Listener {
             override fun onSMSReceived(pin: String) {
-              // HERE you have the pin and can call your server to check. =)
+              print("HEYYY received")
+              methodChannel.invokeMethod("onSmsReceived", pin)
+              activity.unregisterReceiver(smsBroadcastReceiver)
             }
-            override fun onTimeOut() {
-              //TimeOut
+            override fun onTimeout() {
+              methodChannel.invokeMethod("onTimeout", null)
+              activity.unregisterReceiver(smsBroadcastReceiver)
             }
           }
           smsBroadcastReceiver.injectListener(listener)
           activity.registerReceiver(smsBroadcastReceiver, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))
         }
         retriever.addOnFailureListener {
-          //Problem to start listener
+          print("HEYYY failure")
+          methodChannel.invokeMethod("onFailureListener", null)
         }
+        result.success(true)
       }
       else -> {
         result.notImplemented()

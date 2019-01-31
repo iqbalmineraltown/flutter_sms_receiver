@@ -12,12 +12,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _platformVersion = 'Waiting for messages...';
+  SmsReceiver _smsReceiver;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    _smsReceiver = SmsReceiver(onSmsReceived, onTimeout: onTimeout);
+    _startListening();
+    //initPlatformState();
+  }
+
+  void onSmsReceived(String pin) {
+    setState(() {
+      _platformVersion = "The pin is: $pin";
+    });
+  }
+
+  void onTimeout() {
+    setState(() {
+      _platformVersion = "Timeout!!!";
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -25,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await SmsReceiver.platformVersion;
+      platformVersion = await _smsReceiver.platformVersion();
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -40,15 +55,22 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _startListening() {
+    _smsReceiver.startListening();
+    setState(() {
+      _platformVersion = "Waiting for messages...";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('SMS listener app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Text(_platformVersion),
         ),
       ),
     );

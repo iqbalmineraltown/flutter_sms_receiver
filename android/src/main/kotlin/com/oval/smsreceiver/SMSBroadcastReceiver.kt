@@ -17,9 +17,12 @@ class SMSBroadcastReceiver: BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+        print("HEYYYYY"+intent.toString())
+
         if (SmsRetriever.SMS_RETRIEVED_ACTION == intent.action) {
             val extras = intent.extras
             val status = extras.get(SmsRetriever.EXTRA_STATUS) as Status
+            print("HEYYYYY"+status.statusCode.toString())
 
             when (status.statusCode) {
 
@@ -33,13 +36,13 @@ class SMSBroadcastReceiver: BroadcastReceiver() {
                     if (matcher.find())
                         listener?.onSMSReceived(matcher.group(0))
                 }
-                CommonStatusCodes.TIMEOUT -> listener?.onTimeOut()
+                CommonStatusCodes.TIMEOUT -> listener?.onTimeout()
             }
         }
     }
 
     interface Listener {
         fun onSMSReceived(otp: String)
-        fun onTimeOut()
+        fun onTimeout()
     }
 }

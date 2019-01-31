@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <receiver android:name=".SMSBroadcastReceiver">
+        <receiver android:name="com.oval.smsreceiver.SMSBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
             </intent-filter>
