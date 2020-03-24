@@ -1,6 +1,6 @@
 name: sms_receiver
 description: Android SMS Receiver API without permission required.
-version: 0.3.1
+version: 0.3.1+1
 homepage: https://github.com/iqbalmineraltown/flutter_sms_receiver
 
 environment:

@@ -1,6 +1,6 @@
 # sms_receiver
 
-[![pub package](https://img.shields.io/badge/pub-0.3.1-blue.svg)](https://github.com/iqbalmineraltown/flutter_sms_receiver)
+[![pub package](https://img.shields.io/badge/pub-0.3.1+1-blue.svg)](https://pub.dev/packages/sms_receiver)
 
 Flutter plugin for reading incoming-and-expected SMS only
 

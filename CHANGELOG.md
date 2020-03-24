@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1+1
+
+* Fix pub badge link on README
+
 ## 0.3.1
 
 * Update android dependencies (by [andzejsw](https://github.com/andzejsw))
