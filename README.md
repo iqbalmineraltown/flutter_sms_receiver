@@ -1,5 +1,7 @@
 # sms_receiver
 
+[![pub package](https://img.shields.io/badge/pub-0.3.1-blue.svg)](https://github.com/iqbalmineraltown/flutter_sms_receiver)
+
 Flutter plugin for reading incoming-and-expected SMS only
 
 Currently developed for Android: reading message without requesting SMS permission.
@@ -22,3 +24,4 @@ Currently developed for Android: reading message without requesting SMS permissi
 ## Future Development
 
 - Add/Combine with iOS counterpart
+
