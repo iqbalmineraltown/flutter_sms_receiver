@@ -10,7 +10,7 @@ Currently developed for Android: reading message without requesting SMS permissi
 
 - Generate acceptable [message format](https://developers.google.com/identity/sms-retriever/verify)
 
-  - DON'T generate hash message on runtime using `AppSignatureHelper`. Store hash as constant inside your app before building app package.
+  - DON'T generate hash message on runtime using `AppSignatureHelper`. Store hash as constant inside your app, either on the server or client.
 
 - Add dependency to this package
 
