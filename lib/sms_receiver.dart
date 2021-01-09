@@ -45,4 +45,8 @@ class SmsReceiver {
     bool result = await _channel.invokeMethod('startListening');
     return result;
   }
+
+  Future<void> stopListening() async {
+    await _channel.invokeMethod('stopListening');
+  }
 }

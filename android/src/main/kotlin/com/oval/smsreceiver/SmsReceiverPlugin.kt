@@ -45,9 +45,19 @@ class SmsReceiverPlugin(private val activity: Activity,
           }
         }
       }
+      "stopListening" -> {
+        stopListening()
+      }
       else -> {
         result.notImplemented()
       }
+    }
+  }
+
+  private fun stopListening() {
+    if (isListening) {
+      activity.unregisterReceiver(smsBroadcastReceiver)
+      isListening = false
     }
   }
 
