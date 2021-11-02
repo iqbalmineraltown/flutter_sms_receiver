@@ -1,6 +1,6 @@
 # sms_receiver
 
-NOTE: This plugin no longer needed per [flutter/flutter#13015](https://github.com/flutter/flutter/issues/13015#issuecomment-624921951)
+NOTE: This plugin might no longer needed due to [flutter/flutter#13015](https://github.com/flutter/flutter/issues/13015#issuecomment-624921951)
 
 [![pub package](https://img.shields.io/badge/pub-0.3.1+1-blue.svg)](https://pub.dev/packages/sms_receiver)
 
@@ -19,6 +19,8 @@ Currently developed for Android: reading message without requesting SMS permissi
 - Create `SmsReceiver()` with `onSmsReceived(String message)` handler.
 
 - Start listening with `startListening()`
+
+- Stop listening with `stopListening()`
 
 - Once sms received or receiver timed out, use `startListening` again. See example
   - Receiver timeout is 5 minutes. Currently not configurable.

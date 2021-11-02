@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+* migrate to null safety
+* recreate android and ios native part
+* add `stopListening`
+
 ## 0.3.1+1
 
 * Fix pub badge link on README

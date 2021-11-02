@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+
 import 'package:sms_receiver/sms_receiver.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  String _textContent = 'Waiting for messages...';
-  SmsReceiver _smsReceiver;
+  String? _textContent = 'Waiting for messages...';
+  SmsReceiver? _smsReceiver;
 
   @override
   void initState() {
@@ -19,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     _startListening();
   }
 
-  void onSmsReceived(String message) {
+  void onSmsReceived(String? message) {
     setState(() {
       _textContent = message;
     });
@@ -27,14 +32,23 @@ class _MyAppState extends State<MyApp> {
 
   void onTimeout() {
     setState(() {
-      _textContent = "Timeout!!!";
+      _textContent = 'Timeout!!!';
     });
   }
 
-  void _startListening() {
-    _smsReceiver.startListening();
+  void _startListening() async {
+    if (_smsReceiver == null) return;
+    await _smsReceiver?.startListening();
     setState(() {
-      _textContent = "Waiting for messages...";
+      _textContent = 'Waiting for messages...';
+    });
+  }
+
+  void _stopListening() async {
+    if (_smsReceiver == null) return;
+    await _smsReceiver?.stopListening();
+    setState(() {
+      _textContent = 'Listener Stopped';
     });
   }
 
@@ -50,11 +64,15 @@ class _MyAppState extends State<MyApp> {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               alignment: Alignment.center,
-              child: Text(_textContent),
+              child: Text(_textContent ?? 'empty'),
             ),
-            RaisedButton(
-              child: Text("Listen Again"),
+            ElevatedButton(
+              child: const Text('Listen Again'),
               onPressed: _startListening,
+            ),
+            ElevatedButton(
+              child: const Text('Stop Listener'),
+              onPressed: _stopListening,
             ),
           ],
         ),
