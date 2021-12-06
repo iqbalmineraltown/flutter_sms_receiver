@@ -92,8 +92,13 @@ class SmsReceiverPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   private fun stopListening() {
-    activity.unregisterReceiver(smsBroadcastReceiver)
-    isListening = false
+    try {
+      activity.unregisterReceiver(smsBroadcastReceiver)
+    } catch (e: Exception) {
+      // Ignored
+    } finally {
+      isListening = false
+    }
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
