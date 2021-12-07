@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.1
+* handle `stopListening` for older Huawei device (by [sullenel](https://github.com/sullenel))
+
 ## 0.4.0
 
 * migrate to null safety
