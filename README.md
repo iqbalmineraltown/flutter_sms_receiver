@@ -2,7 +2,7 @@
 
 NOTE: This plugin might no longer needed due to [flutter/flutter#13015](https://github.com/flutter/flutter/issues/13015#issuecomment-624921951)
 
-[![pub package](https://img.shields.io/badge/pub-0.3.1+1-blue.svg)](https://pub.dev/packages/sms_receiver)
+[![pub package](https://img.shields.io/badge/pub-0.4.1-blue.svg)](https://pub.dev/packages/sms_receiver)
 
 Flutter plugin for reading incoming-and-expected SMS only
 
