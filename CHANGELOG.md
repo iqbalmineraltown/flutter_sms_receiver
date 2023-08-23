@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.2
+* update build.gradle (by [marinagosson](https://github.com/marinagosson))
+
 ## 0.4.1
 * handle `stopListening` for older Huawei device (by [sullenel](https://github.com/sullenel))
 
