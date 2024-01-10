@@ -1,7 +1,10 @@
 package com.oval.sms_receiver
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.IntentFilter
+import android.os.Build
 import android.util.Log
 import androidx.annotation.NonNull
 import com.google.android.gms.auth.api.phone.SmsRetriever
@@ -67,6 +70,7 @@ class SmsReceiverPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     }
   }
 
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private fun startListening() {
     val client = SmsRetriever.getClient(activity)
     val retriever = client.startSmsRetriever()
@@ -82,8 +86,14 @@ class SmsReceiverPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         }
       }
       smsBroadcastReceiver.injectListener(listener)
-      activity.registerReceiver(smsBroadcastReceiver,
-              IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))
+      if (Build.VERSION.SDK_INT >= 33) {
+        activity.registerReceiver(smsBroadcastReceiver,
+          IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION),
+          Context.RECEIVER_EXPORTED)
+      } else {
+        activity.registerReceiver(smsBroadcastReceiver,
+          IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))
+      }
     }
     retriever.addOnFailureListener {
       channel.invokeMethod("onFailureListener", null)
